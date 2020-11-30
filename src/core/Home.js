@@ -3,10 +3,12 @@ import Base from "./Base";
 import { BASE_API } from "../backend";
 import "../styles.css";
 
-export default function Home() {
+const Home = () => {
   return (
-    <Base>
+    <Base title="Home Page" description="Welcome to My Store">
       <h1 className="text-white">Hello om</h1>
     </Base>
   );
-}
+};
+
+export default Home;
