@@ -34,6 +34,8 @@ export const getAllCategories = () => {
 
 // create new product
 export const createProduct = (userId, token, product) => {
+  console.log(userId, token, product);
+
   return fetch(`${BASE_API}/product/create/${userId}`, {
     method: "POST",
     headers: {
