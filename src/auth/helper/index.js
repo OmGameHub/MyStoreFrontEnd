@@ -46,7 +46,7 @@ export const signOut = (next) => {
     localStorage.removeItem("jwt");
     next();
 
-    return fetch(`${BASE_API}/signup`, {
+    return fetch(`${BASE_API}/signout`, {
       method: "GET",
     })
       .then((res) => {
