@@ -3,6 +3,7 @@ import "../styles.css";
 
 import Base from "./Base";
 import Card from "./Card";
+import StripePayment from "./StripePayment";
 import { loadCart } from "./helper/cartHelper";
 
 const Cart = () => {
@@ -24,8 +25,8 @@ const Cart = () => {
 
       <div className="row">
         {Array.isArray(products) &&
-          products.map((product) => (
-            <div key={product?._id} className="col-4 md-4">
+          products.map((product, index) => (
+            <div key={`${product?._id}_${index}`} className="col-4 md-4">
               <Card
                 product={product}
                 addToCart={false}
@@ -49,7 +50,13 @@ const Cart = () => {
     <Base title="Cart Page" description="Ready to checkout">
       <div className="row text-center">
         <div className="col-8">{productsContainer()}</div>
-        <div className="col-4">{checkoutContainer()}</div>
+        <div className="col-4">
+          <StripePayment
+            products={products}
+            reload={reload}
+            setReload={setReload}
+          />
+        </div>
       </div>
     </Base>
   );
