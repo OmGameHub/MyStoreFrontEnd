@@ -3,8 +3,9 @@ import "../styles.css";
 
 import Base from "./Base";
 import Card from "./Card";
-import StripePayment from "./StripePayment";
+// import StripePayment from "./StripePayment";
 import { loadCart } from "./helper/cartHelper";
+import BrainTreePayment from "./BrainTreePayment";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -40,23 +41,37 @@ const Cart = () => {
     </div>
   );
 
-  const checkoutContainer = () => (
-    <div>
-      <h2>This section checkout</h2>
-    </div>
-  );
+  const paymentContainer = () => {
+    // return (
+    //   <StripePayment
+    //     products={products}
+    //     reload={reload}
+    //     setReload={setReload}
+    //   />
+    // );
+
+    return (
+      <BrainTreePayment
+        products={products}
+        reload={reload}
+        setReload={setReload}
+      />
+    );
+  };
 
   return (
     <Base title="Cart Page" description="Ready to checkout">
       <div className="row text-center">
-        <div className="col-8">{productsContainer()}</div>
-        <div className="col-4">
-          <StripePayment
-            products={products}
-            reload={reload}
-            setReload={setReload}
-          />
-        </div>
+        {products.length == 0 ? (
+          <div className="col">
+            <h3>Cart is empty</h3>
+          </div>
+        ) : (
+          <>
+            <div className="col-8">{productsContainer()}</div>
+            <div className="col-4">{paymentContainer()}</div>
+          </>
+        )}
       </div>
     </Base>
   );
