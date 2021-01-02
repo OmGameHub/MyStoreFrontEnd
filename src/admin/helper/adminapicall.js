@@ -32,6 +32,55 @@ export const getAllCategories = () => {
     });
 };
 
+// get category
+export const getCategory = (categoryId) => {
+  return fetch(`${BASE_API}/category/${categoryId}`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      console.log("get category error", err);
+    });
+};
+
+// update category details
+export const updateCategory = (categoryId, userId, token, category) => {
+  return fetch(`${BASE_API}/category/${categoryId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(category),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      console.log("update category error", err);
+    });
+};
+
+// delete category details
+export const deleteCategory = (categoryId, userId, token) => {
+  return fetch(`${BASE_API}/category/${categoryId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      console.log("delete category error", err);
+    });
+};
+
 // create new product
 export const createProduct = (userId, token, product) => {
   console.log(userId, token, product);
