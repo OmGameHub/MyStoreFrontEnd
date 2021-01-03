@@ -11,6 +11,7 @@ import { isAuthenticated } from "../auth/helper";
 const UpdateProduct = ({ match }) => {
   const { user, token } = isAuthenticated();
 
+  const [categories, setCategories] = useState([]);
   const [values, setValues] = useState({
     photo: undefined,
     name: "",
@@ -18,7 +19,6 @@ const UpdateProduct = ({ match }) => {
     price: "",
     stock: "",
     category: "",
-    categories: [],
     loading: false,
     error: "",
     success: false,
@@ -32,7 +32,6 @@ const UpdateProduct = ({ match }) => {
     name,
     description,
     price,
-    categories,
     category,
     stock,
     loading,
@@ -51,11 +50,7 @@ const UpdateProduct = ({ match }) => {
         if (data?.error) {
           setValues({ ...values, error: data?.error });
         } else {
-          setValues({
-            ...values,
-            categories: data,
-            formData: new FormData(),
-          });
+          setCategories(data);
         }
       })
       .catch((err) => {
@@ -79,7 +74,7 @@ const UpdateProduct = ({ match }) => {
         }
       })
       .catch((err) => {
-        console.log("get all categories ", err);
+        console.log("get product error ", err);
       });
   };
 
@@ -204,8 +199,10 @@ const UpdateProduct = ({ match }) => {
         >
           <option>Select</option>
           {categories &&
-            categories.map((cate) => (
-              <option value={cate?._id}>{cate?.name}</option>
+            categories.map((cate, index) => (
+              <option key={index} value={cate?._id}>
+                {cate?.name}
+              </option>
             ))}
         </select>
       </div>
